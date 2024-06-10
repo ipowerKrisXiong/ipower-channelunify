@@ -1,0 +1,32 @@
+version: '3'
+
+networks:
+  uneed-net-overlay:
+    external: true
+
+services:
+  uneed-enterprise:
+    image: apache/skywalking-java-agent:9.1.0-java17
+    hostname: ipower-channelunfiy
+    container_name: ipower-channelunfiy
+    restart: always
+    privileged: true
+    environment:
+      - TZ=Asia/Shanghai
+      - SW_AGENT_NAME=ipower-enterprise
+      #- SW_AGENT_COLLECTOR_BACKEND_SERVICES=skywalking-oap:11800
+      - JAVA_OPTS=-Xms256m -Xmx512m
+    ports:
+      - 10100:10100
+    networks:
+      - uneed-net-overlay
+    volumes:
+      - /app/service-channelunfiy/ipower-channelunfiy-boot.jar:/app/ipower-channelunfiy-boot.jar
+      - /app/service-channelunfiy/logs:/skywalking/logs:rw
+    command:
+      /bin/bash -c "java -DNACOS_HOST=nacosServer -DNACOS_PORT=8848 -DMYSQL_HOST=mysqlNode -DMYSQL_PORT=3306 -DMYSQL_DB=ipower_channelunfiy -jar /app/ipower-channelunfiy-boot.jar --info"
+    healthcheck:
+      test: [ "CMD-SHELL", "curl -sS http://localhost:10100/actuator/health || exit 1"]
+      interval: 1m
+      timeout: 10s
+      retries: 3

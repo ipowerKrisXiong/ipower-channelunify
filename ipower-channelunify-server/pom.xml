@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>cn.need.cloud</groupId>
+       <artifactId>need-cloud-parent</artifactId>
+        <version>IPOWER-DEV-3.0.0-SNAPSHOT</version>
+        <relativePath/>
+    </parent>
+
+    <artifactId>ipower-channelunify-server</artifactId>
+    <packaging>jar</packaging>
+    <name>ipower-channelunify-server</name>
+    <description>the channelunify server Center for uneed need-cloud</description>
+
+    <!-- 参数配置 -->
+    <properties>
+        <mongo.version>2.7.18</mongo.version>
+    </properties>
+
+    <dependencies>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-mongodb</artifactId>
+            <version>${mongo.version}</version>
+        </dependency>
+        
+        <!-- uneed common 依赖-->
+        <dependency>
+            <groupId>cn.need.framework.common</groupId>
+            <artifactId>need-common-core</artifactId>
+        </dependency>
+
+<!--        <dependency>-->
+<!--            <groupId>cn.need.framework.common</groupId>-->
+<!--            <artifactId>need-common-support</artifactId>-->
+<!--        </dependency>-->
+        <dependency>
+            <groupId>cn.need.framework.common</groupId>
+            <artifactId>need-common-swagger</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-all</artifactId>
+        </dependency>
+
+<!--        <dependency>-->
+<!--            <groupId>com.github.whvcse</groupId>-->
+<!--            <artifactId>easy-captcha</artifactId>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>cn.need.framework.starter</groupId>-->
+<!--            <artifactId>need-starter-redis</artifactId>-->
+<!--        </dependency>-->
+        <dependency>
+            <groupId>cn.need.framework.starter</groupId>
+            <artifactId>need-starter-security</artifactId>
+        </dependency>
+
+    </dependencies>
+
+    <build>
+        <plugins>
+            <!-- deploy时，过滤当前模块-->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <configuration>
+                    <skip>false</skip>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

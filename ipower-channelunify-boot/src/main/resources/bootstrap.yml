@@ -1,0 +1,27 @@
+ # bootstrap.yml优先加载于application.yml，当俩个配置的值重叠时，工程会优先选用application的值
+spring:
+  # 构建时的环境配置
+  profiles:
+    active: ${PROFILES_ACTIVE:test}
+  # 服务器名称
+  application:
+    name: ${APPLICATION_NAME_CHANNELUNIFY:ipower-channelunify}
+  # 配置spring cloud的配置中心，采用alibaba的nacos做为配置中心
+  cloud:
+    nacos:
+      config:
+        server-addr: ${NACOS_HOST:123.206.218.67}:${NACOS_PORT:18848}
+        file-extension: ${NACOS_FILE_EXTENSION:yaml}
+        # nacos命名空间
+        namespace: ${NACOS_NAMESPACE:8fe44f1b-a9cf-4ac5-b09e-c2831061dc27}
+        username: ${NACOS_USERNAME:nacos}
+        password: ${NACOS_PASSWORD:nX3mS5qZ3mV8pZ5iF2hY1uR3sX6wJ2pO}
+        # 分组
+        group: ${NACOS_GROUP:DEFAULT_GROUP}
+        # nacos共享配置
+#        shared-configs: ${NACOS_SHARED_CONFIGS:database.yaml,redis.yaml,rabbitmq.yaml,log.yaml,feign.yaml,other.yaml}
+        shared-configs: ${NACOS_SHARED_CONFIGS:database.yaml,log.yaml,feign.yaml,other.yaml,security.yaml}
+
+logging:
+  level:
+    root: debug

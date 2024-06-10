@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>cn.need.cloud</groupId>
+       <artifactId>need-cloud-parent</artifactId>
+        <version>IPOWER-DEV-3.0.0-SNAPSHOT</version>
+        <relativePath/>
+    </parent>
+
+    <artifactId>ipower-channelunify-client</artifactId>
+    <packaging>jar</packaging>
+    <name>ipower-channelunify-client</name>
+    <description>the channelunify client Center</description>
+
+    <!-- 参数配置 -->
+    <properties>
+
+    </properties>
+
+    <dependencies>
+
+        <!-- openfeign 服务调用-->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-openfeign</artifactId>
+        </dependency>
+
+        <!-- okhttp -->
+        <dependency>
+            <groupId>io.github.openfeign</groupId>
+            <artifactId>feign-okhttp</artifactId>
+        </dependency>
+
+        <!-- uneed support 依赖-->
+        <dependency>
+            <groupId>cn.need.framework.common</groupId>
+            <artifactId>need-common-support</artifactId>
+        </dependency>
+
+    </dependencies>
+
+    <build>
+        <plugins>
+            <!-- deploy时，过滤当前模块-->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <configuration>
+                    <skip>false</skip>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
