@@ -3,6 +3,7 @@ package com.ipower.cloud.channelunify.repository;
 import cn.hutool.core.date.LocalDateTimeUtil;
 import cn.hutool.core.util.RandomUtil;
 import com.ipower.cloud.channelunify.domain.entity.SampleOrder;
+import com.ipower.cloud.channelunify.domain.repository.SampleOrderCustomizedRepository;
 import com.ipower.cloud.channelunify.domain.repository.SampleOrderRepository;
 import com.ipower.cloud.channelunify.domain.types.ShipmentAddress;
 import org.junit.jupiter.api.Assertions;
@@ -25,6 +26,9 @@ public class SampleOrderRepositoryTest {
     @Autowired
     private SampleOrderRepository sampleOrderRepository;
 
+    @Autowired
+    private SampleOrderCustomizedRepository sampleOrderCustomizedRepository;
+
 
     @Test
     void testcrud() {
@@ -45,7 +49,7 @@ public class SampleOrderRepositoryTest {
         Assertions.assertNotNull(findOne);
         Assertions.assertEquals(orderCode,findOne.getOrderCode());
 
-        List<SampleOrder> sampleOrders = sampleOrderRepository.findByTimeRange(LocalDateTime.now().minusDays(1),LocalDateTime.now().plusDays(1));
+        List<SampleOrder> sampleOrders = sampleOrderCustomizedRepository.findByTimeRange(LocalDateTime.now().minusDays(1),LocalDateTime.now().plusDays(1));
 
         Assertions.assertNotNull(sampleOrders);
         Assertions.assertTrue(sampleOrders.size()>0);
