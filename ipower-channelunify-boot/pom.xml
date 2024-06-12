@@ -4,21 +4,22 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <parent>
-        <groupId>cn.need.cloud</groupId>
-       <artifactId>need-cloud-parent</artifactId>
-        <version>IPOWER-DEV-3.0.0-SNAPSHOT</version>
-        <relativePath/>
-    </parent>
-
     <artifactId>ipower-channelunify-boot</artifactId>
     <packaging>jar</packaging>
-    <name>ipower-channelunify-boot</name>
     <description>the channelunify server Center for uneed need-cloud</description>
+
+    <parent>
+        <groupId>com.ipower.cloud</groupId>
+        <artifactId>ipower-channelunify</artifactId>
+        <version>${revision}</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
 
     <!-- 参数配置 -->
     <properties>
-
+        <!--不发布到中央制品仓库,以免浪费宝贵空间 -->
+        <maven.install.skip>true</maven.install.skip>
+        <maven.deploy.skip>true</maven.deploy.skip>
     </properties>
 
     <dependencies>
@@ -78,20 +79,23 @@
     </dependencies>
 
     <build>
-        <finalName>ipower-enterprise-boot</finalName>
+        <!--微服务包后面不跟版本号,方便cicd部署 -->
+        <finalName>${project.artifactId}</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <includeSystemScope>true</includeSystemScope>
+                </configuration>
             </plugin>
-
-            <!-- deploy时，过滤当前模块-->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-deploy-plugin</artifactId>
-                <configuration>
-                    <skip>true</skip>
-                </configuration>
+                <artifactId>maven-surefire-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
             </plugin>
         </plugins>
     </build>

@@ -11,10 +11,17 @@
         <relativePath/>
     </parent>
 
-    <artifactId>ipower-channel-unify</artifactId>
+    <groupId>com.ipower.cloud</groupId>
+    <artifactId>ipower-channelunify</artifactId>
     <packaging>pom</packaging>
-    <name>ipower-channel-unify</name>
     <description>the ipower-channel-unify pom for uneed need-cloud</description>
+
+    <version>${revision}</version>
+
+    <properties>
+        <!--工程统一版本号 -->
+        <revision>1.0.0-SNAPSHOT</revision>
+    </properties>
 
     <modules>
         <module>ipower-channelunify-client</module>
@@ -40,6 +47,34 @@
                 <configuration>
                     <skip>false</skip>
                 </configuration>
+            </plugin>
+
+            <!--为了识别reversion版本占位符的写法，要使用这个插件 https://blog.csdn.net/sayyy/article/details/103994302-->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>flatten-maven-plugin</artifactId>
+                 <version>1.1.0</version>
+                <configuration>
+                    <!-- 是否更新pom文件，此处还有更高级的用法 -->
+                    <updatePomFile>true</updatePomFile>
+                    <flattenMode>resolveCiFriendliesOnly</flattenMode>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>flatten</id>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>flatten</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>flatten.clean</id>
+                        <phase>clean</phase>
+                        <goals>
+                            <goal>clean</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>

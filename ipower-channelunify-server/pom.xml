@@ -4,21 +4,23 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <parent>
-        <groupId>cn.need.cloud</groupId>
-       <artifactId>need-cloud-parent</artifactId>
-        <version>IPOWER-DEV-3.0.0-SNAPSHOT</version>
-        <relativePath/>
-    </parent>
-
     <artifactId>ipower-channelunify-server</artifactId>
     <packaging>jar</packaging>
-    <name>ipower-channelunify-server</name>
     <description>the channelunify server Center for uneed need-cloud</description>
+
+    <parent>
+        <groupId>com.ipower.cloud</groupId>
+        <artifactId>ipower-channelunify</artifactId>
+        <version>${revision}</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
 
     <!-- 参数配置 -->
     <properties>
         <mongo.version>2.7.18</mongo.version>
+        <!--service不发布到中央制品仓库,以免浪费宝贵空间 -->
+        <maven.install.skip>true</maven.install.skip>
+        <maven.deploy.skip>true</maven.deploy.skip>
     </properties>
 
     <dependencies>
@@ -28,7 +30,23 @@
             <artifactId>spring-boot-starter-data-mongodb</artifactId>
             <version>${mongo.version}</version>
         </dependency>
-        
+        <dependency>
+            <groupId>cn.need.framework.common</groupId>
+            <artifactId>need-common-swagger</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <!--测试用内嵌mongo -->
+        <dependency>
+            <groupId>de.flapdoodle.embed</groupId>
+            <artifactId>de.flapdoodle.embed.mongo</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+
         <!-- uneed common 依赖-->
         <dependency>
             <groupId>cn.need.framework.common</groupId>
@@ -49,14 +67,6 @@
             <artifactId>hutool-all</artifactId>
         </dependency>
 
-<!--        <dependency>-->
-<!--            <groupId>com.github.whvcse</groupId>-->
-<!--            <artifactId>easy-captcha</artifactId>-->
-<!--        </dependency>-->
-<!--        <dependency>-->
-<!--            <groupId>cn.need.framework.starter</groupId>-->
-<!--            <artifactId>need-starter-redis</artifactId>-->
-<!--        </dependency>-->
         <dependency>
             <groupId>cn.need.framework.starter</groupId>
             <artifactId>need-starter-security</artifactId>
@@ -65,14 +75,11 @@
     </dependencies>
 
     <build>
+        <finalName>${project.artifactId}-${project.version}</finalName>
         <plugins>
-            <!-- deploy时，过滤当前模块-->
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-deploy-plugin</artifactId>
-                <configuration>
-                    <skip>false</skip>
-                </configuration>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
         </plugins>
     </build>

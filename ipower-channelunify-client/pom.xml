@@ -4,17 +4,16 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <parent>
-        <groupId>cn.need.cloud</groupId>
-       <artifactId>need-cloud-parent</artifactId>
-        <version>IPOWER-DEV-3.0.0-SNAPSHOT</version>
-        <relativePath/>
-    </parent>
-
     <artifactId>ipower-channelunify-client</artifactId>
     <packaging>jar</packaging>
-    <name>ipower-channelunify-client</name>
     <description>the channelunify client Center</description>
+
+    <parent>
+        <groupId>com.ipower.cloud</groupId>
+        <artifactId>ipower-channelunify</artifactId>
+        <version>${revision}</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
 
     <!-- 参数配置 -->
     <properties>
@@ -44,14 +43,12 @@
     </dependencies>
 
     <build>
+        <finalName>${project.artifactId}-${project.version}</finalName>
+
         <plugins>
-            <!-- deploy时，过滤当前模块-->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-deploy-plugin</artifactId>
-                <configuration>
-                    <skip>false</skip>
-                </configuration>
+                <artifactId>maven-jar-plugin</artifactId>
             </plugin>
         </plugins>
     </build>
